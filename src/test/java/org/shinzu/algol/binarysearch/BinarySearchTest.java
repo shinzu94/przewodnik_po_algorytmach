@@ -15,7 +15,7 @@ public class BinarySearchTest {
     public void callFindAnyForEmptyArrayShouldReturnMinusOne() {
         int result = BinarySearch.findAny(new int[]{}, 1);
         //Assert
-        assertThat(result).isEqualTo(-1);
+        assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class BinarySearchTest {
     public void callFindAnyForTwoElementsArrayWithoutSearchedValueShouldReturnMinusOne() {
         int result = BinarySearch.findAny(new int[]{1, 5}, 2);
         //Assert
-        assertThat(result).isEqualTo(-1);
+        assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 
     @Test
@@ -82,14 +82,14 @@ public class BinarySearchTest {
 
         int result = BinarySearch.findAny(array, array[searchedIndex] + 1);
         //Assert
-        assertThat(result).isEqualTo(-1);
+        assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 
     @Test
     public void callFindFirstForEmptyArrayShouldReturnMinusOne() {
         int result = BinarySearch.findFirst(new int[]{}, 1);
         //Assert
-        assertThat(result).isEqualTo(-1);
+        assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class BinarySearchTest {
     public void callFindFirstForTwoElementsArrayWithoutSearchedValueShouldReturnMinusOne() {
         int result = BinarySearch.findFirst(new int[]{1, 5}, 2);
         //Assert
-        assertThat(result).isEqualTo(-1);
+        assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 
     @Test
@@ -160,6 +160,6 @@ public class BinarySearchTest {
 
         int result = BinarySearch.findFirst(array, array[searchedIndex] + 1);
         //Assert
-        assertThat(result).isEqualTo(-1);
+        assertThat(result).isEqualTo(BinarySearch.NOT_FOUND);
     }
 }
