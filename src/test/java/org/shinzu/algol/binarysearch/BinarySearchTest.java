@@ -56,7 +56,7 @@ public class BinarySearchTest {
     public void callFindAnyForRandomLengthArrayAndSearchedValueOfRandomElementShouldFindTheRandomElement() {
         int length = random.nextInt(100) + 1;
         int searchedIndex = random.nextInt(length - 1);
-        int[] array = ThreadLocalRandom.current().ints(0, 50000).distinct().limit(length).sorted().toArray();
+        int[] array = ThreadLocalRandom.current().ints(0, 50_000).distinct().limit(length).sorted().toArray();
 
         int result = BinarySearch.findAny(array, array[searchedIndex]);
         //Assert
@@ -175,7 +175,7 @@ public class BinarySearchTest {
         int firstElement = 1;
         int[] result = BinarySearch.findAll(new int[]{firstElement, firstElement}, firstElement);
         //Assert
-        assertThat(result).containsSequence(0, 1);
+        assertThat(result).containsOnly(0, 1);
     }
 
     @Test
@@ -183,7 +183,7 @@ public class BinarySearchTest {
         int secondElement = 5;
         int[] result = BinarySearch.findAll(new int[]{1, secondElement}, secondElement);
         //Assert
-        assertThat(result).contains(1);
+        assertThat(result).containsOnly(1);
     }
 
     @Test
@@ -205,8 +205,8 @@ public class BinarySearchTest {
         int[] result1 = BinarySearch.findAll(array, 2);
         int[] result2 = BinarySearch.findAll(array, 10);
         //Assert
-        assertThat(result1).contains(0, 1);
-        assertThat(result2).contains(3, 4, 5);
+        assertThat(result1).containsOnly(0, 1);
+        assertThat(result2).containsOnly(3, 4, 5);
     }
 
     @Test
@@ -217,7 +217,7 @@ public class BinarySearchTest {
         array[length - 1] = array[length - 2] = array[length - 3] = array[length - 4] = array[length - 5] = array[length - 6] = 50_005;
         int[] result = BinarySearch.findAll(array, 50_005);
         //Assert
-        assertThat(result).contains(length - 6, length - 5, length - 4, length - 3, length - 2, length - 1 );
+        assertThat(result).containsOnly(length - 6, length - 5, length - 4, length - 3, length - 2, length - 1 );
     }
 
     @Test
@@ -227,11 +227,89 @@ public class BinarySearchTest {
         array[length - 1] = array[length - 2] = array[length - 3] = array[length - 4] = array[length - 5] = array[length - 6] = 5_000_001;
         int[] result = BinarySearch.findAll(array, 5_000_001);
         //Assert
-        assertThat(result).contains(length - 6, length - 5, length - 4, length - 3, length - 2, length - 1);
+        assertThat(result).containsOnly(length - 6, length - 5, length - 4, length - 3, length - 2, length - 1);
     }
 
     @Test
     public void callFindAllForLargeArrayAndSearchedNotExistValueShouldReturnEmptyArray() {
+        int length = 100_000;
+        int searchedIndex = random.nextInt(length - 1);
+        int[] array = ThreadLocalRandom.current().ints(-5_000_000, 5_000_000).distinct().limit(length).map(x -> x * 2).sorted().toArray();
+
+        int[] result = BinarySearch.findAll(array, array[searchedIndex] + 1);
+        //Assert
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void callFindRangeForEmptyArrayShouldReturnEmptyArray() {
+        int[] result = BinarySearch.findRange(new int[]{}, 1);
+        //Assert
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void callFindRangeForTwoElementsWithSameValueArrayAndSearchedFirstElementShouldFindAllElements() {
+        int firstElement = 1;
+        int[] result = BinarySearch.findRange(new int[]{firstElement, firstElement}, firstElement);
+        //Assert
+        assertThat(result).containsOnly(0, 1);
+    }
+
+    @Test
+    public void callFindRangeForTwoElementsArrayAndSearchedSecondElementShouldFindSecondElement() {
+        int secondElement = 5;
+        int[] result = BinarySearch.findRange(new int[]{1, secondElement}, secondElement);
+        //Assert
+        assertThat(result).containsOnly(1);
+    }
+
+    @Test
+    public void callFindRangeForTwoElementsArrayWithoutSearchedValueShouldReturnEmptyArray() {
+        int[] result = BinarySearch.findRange(new int[]{1, 5}, 2);
+        //Assert
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void callFindRangeForTwentyFiveElementsArrayAndSearchedValueOfSomeoneDoubledValuesShouldFindDoubledElements() {
+        int length = 25;
+        int[] array = ThreadLocalRandom.current().ints(20, 5_000_000).limit(length).map(x -> x * 2).toArray();
+        array[0] = array[1] = 2;
+        array[2] = 3;
+        array[3] = array[4] = array[5] = 10;
+        array = Arrays.stream(array).sorted().toArray();
+
+        int[] result1 = BinarySearch.findRange(array, 2);
+        int[] result2 = BinarySearch.findRange(array, 10);
+        //Assert
+        assertThat(result1).containsOnly(0, 1);
+        assertThat(result2).containsOnly(3, 5);
+    }
+
+    @Test
+    public void callFindRangeForRandomLengthArrayAndSearchedValueOfRandomElementShouldDoubledElementsInEnd() {
+        int length = random.nextInt(100) + 10;
+        int[] array = ThreadLocalRandom.current().ints(0, 50_000).limit(length).sorted().toArray();
+
+        array[length - 1] = array[length - 2] = array[length - 3] = array[length - 4] = array[length - 5] = array[length - 6] = 50_005;
+        int[] result = BinarySearch.findRange(array, 50_005);
+        //Assert
+        assertThat(result).containsOnly(length - 6, length - 1 );
+    }
+
+    @Test
+    public void callFindRangeForLargeArrayAndSearchedValueOfDoubledElementsShouldFindDoubledElements() {
+        int length = 100_000;
+        int[] array = ThreadLocalRandom.current().ints(-5_000_000, 5_000_000).limit(length).sorted().toArray();
+        array[length - 1] = array[length - 2] = array[length - 3] = array[length - 4] = array[length - 5] = array[length - 6] = 5_000_001;
+        int[] result = BinarySearch.findRange(array, 5_000_001);
+        //Assert
+        assertThat(result).containsOnly(length - 6, length - 1);
+    }
+
+    @Test
+    public void callFindRangeForLargeArrayAndSearchedNotExistValueShouldReturnEmptyArray() {
         int length = 100_000;
         int searchedIndex = random.nextInt(length - 1);
         int[] array = ThreadLocalRandom.current().ints(-5_000_000, 5_000_000).distinct().limit(length).map(x -> x * 2).sorted().toArray();
