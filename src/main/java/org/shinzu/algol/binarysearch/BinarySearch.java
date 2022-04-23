@@ -1,29 +1,26 @@
 package org.shinzu.algol.binarysearch;
 
 public class BinarySearch {
-    public static int find(int[] array, int search) {
+    public static int findAny(int[] array, int search) {
         int result = -1;
         int length = array.length;
 
         if (length > 0) {
-            int lengthDiff = length/2;
-            int index = lengthDiff;
-            int lastLengthDiff = -1;
+            int index = length / 2;
+            int begin = 0;
+            int end = length - 1;
+            int lastIndex = -1;
             while (result == -1) {
                 if (array[index] > search) {
-                    index = index - lengthDiff;
-                    lengthDiff = lengthDiff/2;
-                    if (lengthDiff == 0 && lastLengthDiff == lengthDiff) {
-                        break;
-                    }
-                    lastLengthDiff = lengthDiff;
+                    end = index;
+                    lastIndex = index;
+                    index = index - ((end - begin + 1) / 2);
+                    if (index == lastIndex) break;
                 } else if (array[index] < search) {
-                    index = index - lengthDiff;
-                    lengthDiff = lengthDiff/2;
-                    if (lengthDiff == 0 && lastLengthDiff == lengthDiff) {
-                        break;
-                    }
-                    lastLengthDiff = lengthDiff;
+                    begin = index;
+                    lastIndex = index;
+                    index = index + ((end - begin) / 2);
+                    if (index == lastIndex) break;
                 } else {
                     result = index;
                 }
