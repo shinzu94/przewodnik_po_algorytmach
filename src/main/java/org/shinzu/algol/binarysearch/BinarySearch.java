@@ -1,6 +1,12 @@
 package org.shinzu.algol.binarysearch;
 
 public class BinarySearch {
+    public static int[] findAll(int[] array, int search) {
+        return new int[]{BinarySearch.findFirst(array, search)};
+    }
+    public static int findFirst(int[] array, int search) {
+        return BinarySearch.findAny(array, search);
+    }
     public static int findAny(int[] array, int search) {
         int result = -1;
         int length = array.length;
