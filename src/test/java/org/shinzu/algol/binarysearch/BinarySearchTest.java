@@ -242,6 +242,15 @@ public class BinarySearchTest {
     }
 
     @Test
+    public void callFindAllForLargeArrayWithOneValueAndSearchedValueOfDoubledElementsShouldFindEachElementInTable() {
+        int length = 100_000;
+        int[] array = new int[length];
+        int[] result = BinarySearch.findAll(array, 0);
+        //Assert
+        assertThat(result).isEqualTo(result);
+    }
+
+    @Test
     public void callFindRangeForEmptyArrayShouldReturnEmptyArray() {
         int[] result = BinarySearch.findRange(new int[]{}, 1);
         //Assert
@@ -317,5 +326,14 @@ public class BinarySearchTest {
         int[] result = BinarySearch.findAll(array, array[searchedIndex] + 1);
         //Assert
         assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void callFindRangeForLargeArrayWithOneValueAndSearchedValueOfDoubledElementsShouldFindEachElementInTable() {
+        int length = 100_000;
+        int[] array = new int[length];
+        int[] result = BinarySearch.findRange(array, 0);
+        //Assert
+        assertThat(result).containsOnly(0, length-1);
     }
 }

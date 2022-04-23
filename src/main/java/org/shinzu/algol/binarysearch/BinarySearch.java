@@ -21,7 +21,7 @@ public class BinarySearch {
         } else {
             int begin = findFirstIndex(array, search, any);
             int end = findEndIndex(array, search, any);
-            int[] result = new int[end-begin+1];
+            int[] result = new int[end - begin + 1];
             for (int i = begin, j = 0; i <= end; i++, j++) {
                 result[j] = i;
             }
@@ -45,7 +45,7 @@ public class BinarySearch {
                 } else if (search == array[lastCorrectIndex - indexDiff]) {
                     lastCorrectIndex -= indexDiff;
                     lastCorrectIndexDiff = indexDiff;
-                    indexDiff = (indexDiff * 2 < lastCorrectIndex) ? indexDiff * 2 : lastCorrectIndexDiff;
+                    indexDiff = (indexDiff * 2 < lastCorrectIndex) ? indexDiff * 2 : lastCorrectIndex;
                 } else if (lastCorrectIndexDiff == 0) {
                     break;
                 } else {
@@ -82,14 +82,14 @@ public class BinarySearch {
     }
 
     public static int findAny(int[] array, int search) {
-        int result = NOT_FOUND;
+        int lastIndex = NOT_FOUND;
+        int result = lastIndex;
         int length = array.length;
 
         if (length > 0) {
             int index = length / 2;
             int begin = 0;
             int end = length - 1;
-            int lastIndex = NOT_FOUND;
             while (result == -1) {
                 if (array[index] > search) {
                     end = index;
