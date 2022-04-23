@@ -1,17 +1,37 @@
 package org.shinzu.algol.binarysearch;
 
-import com.fitbur.testify.junit.UnitTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(UnitTest.class)
 public class BinarySearchTest {
     @Test
-    public void searchInTwoElementArray() {
-        long result = BinarySearch.find(new int[]{5, 1}, 1);
+    public void callFindForEmptyArrayShouldReturnMinusOne() {
+        long result = BinarySearch.find(new int[]{}, 1);
+        //Assert
+        assertThat(result).isEqualTo(-1);
+    }
+
+    @Test
+    public void callFindForTwoElementsArrayAndSearchedFirstElementShouldFindFirstElement() {
+        int firstElement = 1;
+        long result = BinarySearch.find(new int[]{firstElement, 5}, firstElement);
+        //Assert
+        assertThat(result).isEqualTo(0);
+    }
+
+    @Test
+    public void callFindForTwoElementsArrayAndSearchedSecondElementShouldFindSecondElement() {
+        int secondElement = 5;
+        long result = BinarySearch.find(new int[]{1, secondElement}, secondElement);
         //Assert
         assertThat(result).isEqualTo(1);
+    }
+
+    @Test
+    public void callFindForTwoElementsArrayWithoutSearchedValueShouldReturnMinusOne() {
+        long result = BinarySearch.find(new int[]{1, 5}, 2);
+        //Assert
+        assertThat(result).isEqualTo(-1);
     }
 }
