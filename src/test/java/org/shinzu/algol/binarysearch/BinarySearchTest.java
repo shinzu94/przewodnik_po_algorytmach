@@ -54,7 +54,7 @@ public class BinarySearchTest {
 
     @Test
     public void callFindAnyForRandomLengthArrayAndSearchedValueOfRandomElementShouldFindTheRandomElement() {
-        int length = random.nextInt(100) + 1;
+        int length = random.nextInt(100) + 10;
         int searchedIndex = random.nextInt(length - 1);
         int[] array = ThreadLocalRandom.current().ints(0, 50_000).distinct().limit(length).sorted().toArray();
 
