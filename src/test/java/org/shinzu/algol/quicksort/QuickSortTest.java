@@ -47,7 +47,7 @@ public class QuickSortTest {
         int[] result = QuickSort.sort(array);
 
         //Assert
-        assertThat(result[0]).isLessThanOrEqualTo(result[length-1]);
+        assertThat(result[0]).isLessThanOrEqualTo(result[length - 1]);
         assertThat(result).isSortedAccordingTo(Comparator.naturalOrder());
         assertThat(result).isEqualTo(Arrays.stream(array).sorted().toArray());
     }
