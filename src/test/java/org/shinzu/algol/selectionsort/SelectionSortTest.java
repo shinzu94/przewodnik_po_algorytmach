@@ -1,6 +1,7 @@
 package org.shinzu.algol.selectionsort;
 
 import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,7 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SelectionSortTest {
-
     @Test
     public void callSortForEmptyArrayShouldReturnEmptyArray() {
         int[] result = SelectionSort.sort(new int[]{});
@@ -47,7 +47,7 @@ public class SelectionSortTest {
         int[] result = SelectionSort.sort(array);
 
         //Assert
-        assertThat(result[0]).isLessThanOrEqualTo(result[length-1]);
+        assertThat(result[0]).isLessThanOrEqualTo(result[length - 1]);
         assertThat(result).isSortedAccordingTo(Comparator.naturalOrder());
         assertThat(result).isEqualTo(Arrays.stream(array).sorted().toArray());
     }

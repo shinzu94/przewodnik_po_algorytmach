@@ -217,7 +217,7 @@ public class BinarySearchTest {
         array[length - 1] = array[length - 2] = array[length - 3] = array[length - 4] = array[length - 5] = array[length - 6] = 50_005;
         int[] result = BinarySearch.findAll(array, 50_005);
         //Assert
-        assertThat(result).containsOnly(length - 6, length - 5, length - 4, length - 3, length - 2, length - 1 );
+        assertThat(result).containsOnly(length - 6, length - 5, length - 4, length - 3, length - 2, length - 1);
     }
 
     @Test
@@ -304,7 +304,7 @@ public class BinarySearchTest {
         array[length - 1] = array[length - 2] = array[length - 3] = array[length - 4] = array[length - 5] = array[length - 6] = 50_005;
         int[] result = BinarySearch.findRange(array, 50_005);
         //Assert
-        assertThat(result).containsOnly(length - 6, length - 1 );
+        assertThat(result).containsOnly(length - 6, length - 1);
     }
 
     @Test
@@ -334,6 +334,6 @@ public class BinarySearchTest {
         int[] array = new int[length];
         int[] result = BinarySearch.findRange(array, 0);
         //Assert
-        assertThat(result).containsOnly(0, length-1);
+        assertThat(result).containsOnly(0, length - 1);
     }
 }
